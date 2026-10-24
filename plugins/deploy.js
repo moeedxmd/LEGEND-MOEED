@@ -1,267 +1,267 @@
-export default {
-  command: ['deploy'],
-  category: 'owner',
-  description: 'Create or deploy Raza-MD on Heroku',
+ᴇxᴘᴏʀᴛ ᴅᴇғᴀᴜʟᴛ {
+  ᴄᴏᴍᴍᴀɴᴅ: ['ᴅᴇᴘʟᴏʏ'],
+  ᴄᴀᴛᴇɢᴏʀʏ: 'ᴏᴡɴᴇʀ',
+  ᴅᴇsᴄʀɪᴘᴛɪᴏɴ: 'ᴄʀᴇᴀᴛᴇ ᴏʀ ᴅᴇᴘʟᴏʏ ᴍᴏᴇᴇᴅ-ᴍᴅ ᴏɴ ʜᴇʀᴏᴋᴜ',
 
-  async run({ sock, message, args, isOwner }) {
-    if (!isOwner) return
+  ᴀsʏɴᴄ ʀᴜɴ({ sᴏᴄᴋ, ᴍᴇssᴀɢᴇ, ᴀʀɢs, ɪsᴏᴡɴᴇʀ }) {
+    ɪғ (!ɪsᴏᴡɴᴇʀ) ʀᴇᴛᴜʀɴ
 
-    const jid = message?.key?.remoteJid
-    if (!jid) return
+    ᴄᴏɴsᴛ ᴊɪᴅ = ᴍᴇssᴀɢᴇ?.ᴋᴇʏ?.ʀᴇᴍᴏᴛᴇᴊɪᴅ
+    ɪғ (!ᴊɪᴅ) ʀᴇᴛᴜʀɴ
 
-    const API_KEY = process.env.HEROKU_API_KEY
+    ᴄᴏɴsᴛ ᴀᴘɪ_ᴋᴇʏ = ᴘʀᴏᴄᴇss.ᴇɴᴠ.ʜᴇʀᴏᴋᴜ_ᴀᴘɪ_ᴋᴇʏ
 
-    if (!API_KEY) {
-      return await sock.sendMessage(
-        jid,
+    ɪғ (!ᴀᴘɪ_ᴋᴇʏ) {
+      ʀᴇᴛᴜʀɴ ᴀᴡᴀɪᴛ sᴏᴄᴋ.sᴇɴᴅᴍᴇssᴀɢᴇ(
+        ᴊɪᴅ,
         {
-          text:
-            '❌ ʜᴇʀᴏᴋᴜ ᴀᴘɪ ᴋᴇʏ ɪs ᴍɪssɪɴɢ.\n\n' +
+          ᴛᴇxᴛ:
+            '❌ ʜᴇʀᴏᴋᴜ ᴀᴘɪ ᴋᴇʏ ɪs ᴍɪssɪɴɢ.\ɴ\ɴ' +
             'sᴇᴛ ʜᴇʀᴏᴋᴜ_ᴀᴘɪ_ᴋᴇʏ ɪɴ ᴛʜᴇ ʙᴏᴛ ᴀᴘᴘ.'
         },
-        { quoted: message }
+        { ǫᴜᴏᴛᴇᴅ: ᴍᴇssᴀɢᴇ }
       )
     }
 
-    const appName = args?.[0]?.trim()
-    const sessionId = args?.[1]?.trim()
+    ᴄᴏɴsᴛ ᴀᴘᴘɴᴀᴍᴇ = ᴀʀɢs?.[0]?.ᴛʀɪᴍ()
+    ᴄᴏɴsᴛ sᴇssɪᴏɴɪᴅ = ᴀʀɢs?.[1]?.ᴛʀɪᴍ()
 
-    if (!appName || !sessionId) {
-      return await sock.sendMessage(
-        jid,
+    ɪғ (!ᴀᴘᴘɴᴀᴍᴇ || !sᴇssɪᴏɴɪᴅ) {
+      ʀᴇᴛᴜʀɴ ᴀᴡᴀɪᴛ sᴏᴄᴋ.sᴇɴᴅᴍᴇssᴀɢᴇ(
+        ᴊɪᴅ,
         {
-          text:
-            '❌ ɪɴᴠᴀʟɪᴅ ᴜsᴀɢᴇ\n\n' +
-            'ᴜsᴇ:\n' +
-            '.ᴅᴇᴘʟᴏʏ <ᴀᴘᴘɴᴀᴍᴇ> <sᴇssɪᴏɴɪᴅ>\n\n' +
-            'ᴇxᴀᴍᴘʟᴇ:\n' +
-            '.ᴅᴇᴘʟᴏʏ ʙᴜɴɴʏ3737 ʀᴀᴢᴀ_xxxxxxxx'
+          ᴛᴇxᴛ:
+            '❌ ɪɴᴠᴀʟɪᴅ ᴜsᴀɢᴇ\ɴ\ɴ' +
+            'ᴜsᴇ:\ɴ' +
+            '.ᴅᴇᴘʟᴏʏ <ᴀᴘᴘɴᴀᴍᴇ> <sᴇssɪᴏɴɪᴅ>\ɴ\ɴ' +
+            'ᴇxᴀᴍᴘʟᴇ:\ɴ' +
+            '.ᴅᴇᴘʟᴏʏ ʙᴜɴɴʏ3737 ᴍᴏᴇᴇᴅ_xxxxxxxx'
         },
-        { quoted: message }
+        { ǫᴜᴏᴛᴇᴅ: ᴍᴇssᴀɢᴇ }
       )
     }
 
-    const REPO = 'LEGEND-RAZA/RAZA-MD'
-    const BRANCH = 'main'
+    ᴄᴏɴsᴛ ʀᴇᴘᴏ = 'ᴍᴏᴇᴇᴅxᴍᴅ/ʟᴇɢᴇɴᴅ-ᴍᴏᴇᴇᴅ'
+    ᴄᴏɴsᴛ ʙʀᴀɴᴄʜ = 'ᴍᴀɪɴ'
 
-    const PAIR_SERVER_URL =
-      process.env.PAIR_SERVER_URL ||
-      'https://pair-web-3e08f4e68faf.herokuapp.com'
+    ᴄᴏɴsᴛ ᴘᴀɪʀ_sᴇʀᴠᴇʀ_ᴜʀʟ =
+      ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴘᴀɪʀ_sᴇʀᴠᴇʀ_ᴜʀʟ ||
+      'ʜᴛᴛᴘs://ᴘᴀɪʀ-ᴡᴇʙ-3ᴇ08ғ4ᴇ68ғᴀғ.ʜᴇʀᴏᴋᴜᴀᴘᴘ.ᴄᴏᴍ'
 
-    const headers = {
-      Authorization: `Bearer ${API_KEY}`,
-      Accept: 'application/vnd.heroku+json; version=3',
-      'Content-Type': 'application/json'
+    ᴄᴏɴsᴛ ʜᴇᴀᴅᴇʀs = {
+      ᴀᴜᴛʜᴏʀɪᴢᴀᴛɪᴏɴ: `ʙᴇᴀʀᴇʀ ${ᴀᴘɪ_ᴋᴇʏ}`,
+      ᴀᴄᴄᴇᴘᴛ: 'ᴀᴘᴘʟɪᴄᴀᴛɪᴏɴ/ᴠɴᴅ.ʜᴇʀᴏᴋᴜ+ᴊsᴏɴ; ᴠᴇʀsɪᴏɴ=3',
+      'ᴄᴏɴᴛᴇɴᴛ-ᴛʏᴘᴇ': 'ᴀᴘᴘʟɪᴄᴀᴛɪᴏɴ/ᴊsᴏɴ'
     }
 
-    const apiRoot = 'https://api.heroku.com'
+    ᴄᴏɴsᴛ ᴀᴘɪʀᴏᴏᴛ = 'ʜᴛᴛᴘs://ᴀᴘɪ.ʜᴇʀᴏᴋᴜ.ᴄᴏᴍ'
 
-    const sourceUrl =
-      `https://github.com/${REPO}/archive/refs/heads/${BRANCH}.tar.gz`
+    ᴄᴏɴsᴛ sᴏᴜʀᴄᴇᴜʀʟ =
+      `ʜᴛᴛᴘs://ɢɪᴛʜᴜʙ.ᴄᴏᴍ/${ʀᴇᴘᴏ}/ᴀʀᴄʜɪᴠᴇ/ʀᴇғs/ʜᴇᴀᴅs/${ʙʀᴀɴᴄʜ}.ᴛᴀʀ.ɢᴢ`
 
-    try {
-      let appResponse = await fetch(
-        `${apiRoot}/apps/${encodeURIComponent(appName)}`,
+    ᴛʀʏ {
+      ʟᴇᴛ ᴀᴘᴘʀᴇsᴘᴏɴsᴇ = ᴀᴡᴀɪᴛ ғᴇᴛᴄʜ(
+        `${ᴀᴘɪʀᴏᴏᴛ}/ᴀᴘᴘs/${ᴇɴᴄᴏᴅᴇᴜʀɪᴄᴏᴍᴘᴏɴᴇɴᴛ(ᴀᴘᴘɴᴀᴍᴇ)}`,
         {
-          method: 'GET',
-          headers
+          ᴍᴇᴛʜᴏᴅ: 'ɢᴇᴛ',
+          ʜᴇᴀᴅᴇʀs
         }
       )
 
-      let appData =
-        await appResponse.json().catch(() => ({}))
+      ʟᴇᴛ ᴀᴘᴘᴅᴀᴛᴀ =
+        ᴀᴡᴀɪᴛ ᴀᴘᴘʀᴇsᴘᴏɴsᴇ.ᴊsᴏɴ().ᴄᴀᴛᴄʜ(() => ({}))
 
-      let created = false
+      ʟᴇᴛ ᴄʀᴇᴀᴛᴇᴅ = ғᴀʟsᴇ
 
       /*
-       * CREATE APP
+       * ᴄʀᴇᴀᴛᴇ ᴀᴘᴘ
        */
 
-      if (appResponse.status === 404) {
-        const createResponse = await fetch(
-          `${apiRoot}/apps`,
+      ɪғ (ᴀᴘᴘʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs === 404) {
+        ᴄᴏɴsᴛ ᴄʀᴇᴀᴛᴇʀᴇsᴘᴏɴsᴇ = ᴀᴡᴀɪᴛ ғᴇᴛᴄʜ(
+          `${ᴀᴘɪʀᴏᴏᴛ}/ᴀᴘᴘs`,
           {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              name: appName,
-              stack: 'heroku-24'
+            ᴍᴇᴛʜᴏᴅ: 'ᴘᴏsᴛ',
+            ʜᴇᴀᴅᴇʀs,
+            ʙᴏᴅʏ: ᴊsᴏɴ.sᴛʀɪɴɢɪғʏ({
+              ɴᴀᴍᴇ: ᴀᴘᴘɴᴀᴍᴇ,
+              sᴛᴀᴄᴋ: 'ʜᴇʀᴏᴋᴜ-24'
             })
           }
         )
 
-        const createData =
-          await createResponse.json().catch(() => ({}))
+        ᴄᴏɴsᴛ ᴄʀᴇᴀᴛᴇᴅᴀᴛᴀ =
+          ᴀᴡᴀɪᴛ ᴄʀᴇᴀᴛᴇʀᴇsᴘᴏɴsᴇ.ᴊsᴏɴ().ᴄᴀᴛᴄʜ(() => ({}))
 
-        if (!createResponse.ok) {
-          throw new Error(
-            createData?.message ||
-            createData?.error ||
-            `App creation failed: HTTP ${createResponse.status}`
+        ɪғ (!ᴄʀᴇᴀᴛᴇʀᴇsᴘᴏɴsᴇ.ᴏᴋ) {
+          ᴛʜʀᴏᴡ ɴᴇᴡ ᴇʀʀᴏʀ(
+            ᴄʀᴇᴀᴛᴇᴅᴀᴛᴀ?.ᴍᴇssᴀɢᴇ ||
+            ᴄʀᴇᴀᴛᴇᴅᴀᴛᴀ?.ᴇʀʀᴏʀ ||
+            `ᴀᴘᴘ ᴄʀᴇᴀᴛɪᴏɴ ғᴀɪʟᴇᴅ: ʜᴛᴛᴘ ${ᴄʀᴇᴀᴛᴇʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs}`
           )
         }
 
-        appData = createData
-        created = true
-        appResponse = createResponse
+        ᴀᴘᴘᴅᴀᴛᴀ = ᴄʀᴇᴀᴛᴇᴅᴀᴛᴀ
+        ᴄʀᴇᴀᴛᴇᴅ = ᴛʀᴜᴇ
+        ᴀᴘᴘʀᴇsᴘᴏɴsᴇ = ᴄʀᴇᴀᴛᴇʀᴇsᴘᴏɴsᴇ
       }
 
-      if (!appResponse.ok && !created) {
-        if (
-          appResponse.status === 401 ||
-          appResponse.status === 403
+      ɪғ (!ᴀᴘᴘʀᴇsᴘᴏɴsᴇ.ᴏᴋ && !ᴄʀᴇᴀᴛᴇᴅ) {
+        ɪғ (
+          ᴀᴘᴘʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs === 401 ||
+          ᴀᴘᴘʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs === 403
         ) {
-          throw new Error(
-            `You do not have permission to access or create the app "${appName}".`
+          ᴛʜʀᴏᴡ ɴᴇᴡ ᴇʀʀᴏʀ(
+            `ʏᴏᴜ ᴅᴏ ɴᴏᴛ ʜᴀᴠᴇ ᴘᴇʀᴍɪssɪᴏɴ ᴛᴏ ᴀᴄᴄᴇss ᴏʀ ᴄʀᴇᴀᴛᴇ ᴛʜᴇ ᴀᴘᴘ "${ᴀᴘᴘɴᴀᴍᴇ}".`
           )
         }
 
-        throw new Error(
-          appData?.message ||
-          appData?.error ||
-          `Unable to access app: HTTP ${appResponse.status}`
+        ᴛʜʀᴏᴡ ɴᴇᴡ ᴇʀʀᴏʀ(
+          ᴀᴘᴘᴅᴀᴛᴀ?.ᴍᴇssᴀɢᴇ ||
+          ᴀᴘᴘᴅᴀᴛᴀ?.ᴇʀʀᴏʀ ||
+          `ᴜɴᴀʙʟᴇ ᴛᴏ ᴀᴄᴄᴇss ᴀᴘᴘ: ʜᴛᴛᴘ ${ᴀᴘᴘʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs}`
         )
       }
 
-      const actualAppName =
-        appData?.name || appName
+      ᴄᴏɴsᴛ ᴀᴄᴛᴜᴀʟᴀᴘᴘɴᴀᴍᴇ =
+        ᴀᴘᴘᴅᴀᴛᴀ?.ɴᴀᴍᴇ || ᴀᴘᴘɴᴀᴍᴇ
 
-      const apiBase =
-        `${apiRoot}/apps/${encodeURIComponent(actualAppName)}`
+      ᴄᴏɴsᴛ ᴀᴘɪʙᴀsᴇ =
+        `${ᴀᴘɪʀᴏᴏᴛ}/ᴀᴘᴘs/${ᴇɴᴄᴏᴅᴇᴜʀɪᴄᴏᴍᴘᴏɴᴇɴᴛ(ᴀᴄᴛᴜᴀʟᴀᴘᴘɴᴀᴍᴇ)}`
 
       /*
-       * START MESSAGE
+       * sᴛᴀʀᴛ ᴍᴇssᴀɢᴇ
        */
 
-      await sock.sendMessage(
-        jid,
+      ᴀᴡᴀɪᴛ sᴏᴄᴋ.sᴇɴᴅᴍᴇssᴀɢᴇ(
+        ᴊɪᴅ,
         {
-          text:
-            '🚀 ʀᴀᴢᴀ-ᴍᴅ ᴅᴇᴘʟᴏʏ sᴛᴀʀᴛᴇᴅ\n\n' +
-            `☁️ ᴀᴘᴘ: ${actualAppName}\n` +
-            `📦 ʀᴇᴘᴏ: ${REPO}\n` +
-            `🌿 ʙʀᴀɴᴄʜ: ${BRANCH}\n` +
-            `${created ? '🆕 ɴᴇᴡ ᴀᴘᴘ: ᴄʀᴇᴀᴛᴇᴅ\n' : ''}` +
-            '\n🔐 sᴇssɪᴏɴ ɪᴅ ᴘʀᴇᴘᴀʀɪɴɢ...\n' +
+          ᴛᴇxᴛ:
+            '🚀 𝙼𝚘𝚎𝚎𝚍-ᴍᴅ ᴅᴇᴘʟᴏʏ sᴛᴀʀᴛᴇᴅ\ɴ\ɴ' +
+            `☁️ ᴀᴘᴘ: ${ᴀᴄᴛᴜᴀʟᴀᴘᴘɴᴀᴍᴇ}\ɴ` +
+            `📦 ʀᴇᴘᴏ: ${ʀᴇᴘᴏ}\ɴ` +
+            `🌿 ʙʀᴀɴᴄʜ: ${ʙʀᴀɴᴄʜ}\ɴ` +
+            `${ᴄʀᴇᴀᴛᴇᴅ ? '🆕 ɴᴇᴡ ᴀᴘᴘ: ᴄʀᴇᴀᴛᴇᴅ\ɴ' : ''}` +
+            '\ɴ🔐 sᴇssɪᴏɴ ɪᴅ ᴘʀᴇᴘᴀʀɪɴɢ...\ɴ' +
             '⏳ sᴛᴀʀᴛɪɴɢ ʙᴜɪʟᴅ...'
         },
-        { quoted: message }
+        { ǫᴜᴏᴛᴇᴅ: ᴍᴇssᴀɢᴇ }
       )
 
       /*
-       * CONFIG VARS
+       * ᴄᴏɴғɪɢ ᴠᴀʀs
        */
 
-      const configVars = {
-        SESSION_ID: sessionId,
+      ᴄᴏɴsᴛ ᴄᴏɴғɪɢᴠᴀʀs = {
+        sᴇssɪᴏɴ_ɪᴅ: sᴇssɪᴏɴɪᴅ,
 
-        PAIR_SERVER_URL,
+        ᴘᴀɪʀ_sᴇʀᴠᴇʀ_ᴜʀʟ,
 
-        PREFIX:
-          process.env.PREFIX || '.',
+        ᴘʀᴇғɪx:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴘʀᴇғɪx || '.',
 
-        HEROKU_API_KEY:
-          process.env.HEROKU_API_KEY || '',
+        ʜᴇʀᴏᴋᴜ_ᴀᴘɪ_ᴋᴇʏ:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ʜᴇʀᴏᴋᴜ_ᴀᴘɪ_ᴋᴇʏ || '',
 
-        HEROKU_APP_NAME:
-          actualAppName,
+        ʜᴇʀᴏᴋᴜ_ᴀᴘᴘ_ɴᴀᴍᴇ:
+          ᴀᴄᴛᴜᴀʟᴀᴘᴘɴᴀᴍᴇ,
 
-        DB_HOST:
-          process.env.DB_HOST ||
-          'mysql-raza123-innoxcentraza-9801.c.aivencloud.com',
+        ᴅʙ_ʜᴏsᴛ:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴅʙ_ʜᴏsᴛ ||
+          'ᴍʏsǫʟ-3214ᴄ583-ᴍᴏᴇᴇᴅᴄᴏɴᴛᴀᴄᴛ-00ғ8.ʟ.ᴀɪᴠᴇɴᴄʟᴏᴜᴅ.ᴄᴏᴍ',
 
-        DB_PORT:
-          process.env.DB_PORT ||
-          '19244',
+        ᴅʙ_ᴘᴏʀᴛ:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴅʙ_ᴘᴏʀᴛ ||
+          '21830',
 
-        DB_NAME:
-          process.env.DB_NAME ||
-          'defaultdb',
+        ᴅʙ_ɴᴀᴍᴇ:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴅʙ_ɴᴀᴍᴇ ||
+          'ᴅᴇғᴀᴜʟᴛᴅʙ',
 
-        DB_USER:
-          process.env.DB_USER ||
-          'avnadmin',
+        ᴅʙ_ᴜsᴇʀ:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴅʙ_ᴜsᴇʀ ||
+          'ᴀᴠɴᴀᴅᴍɪɴ',
 
-        DB_PASSWORD:
-          process.env.DB_PASSWORD
+        ᴅʙ_ᴘᴀssᴡᴏʀᴅ:
+          ᴘʀᴏᴄᴇss.ᴇɴᴠ.ᴅʙ_ᴘᴀssᴡᴏʀᴅ || 'ᴀᴠɴs_ᴅɴᴅᴄᴊᴡ8ǫᴅ1ᴀᴀᴠ_ғɴᴠᴘʙ'
       }
 
-      const configResponse = await fetch(
-        `${apiBase}/config-vars`,
+      ᴄᴏɴsᴛ ᴄᴏɴғɪɢʀᴇsᴘᴏɴsᴇ = ᴀᴡᴀɪᴛ ғᴇᴛᴄʜ(
+        `${ᴀᴘɪʙᴀsᴇ}/ᴄᴏɴғɪɢ-ᴠᴀʀs`,
         {
-          method: 'PATCH',
-          headers,
-          body: JSON.stringify(configVars)
+          ᴍᴇᴛʜᴏᴅ: 'ᴘᴀᴛᴄʜ',
+          ʜᴇᴀᴅᴇʀs,
+          ʙᴏᴅʏ: ᴊsᴏɴ.sᴛʀɪɴɢɪғʏ(ᴄᴏɴғɪɢᴠᴀʀs)
         }
       )
 
-      const configData =
-        await configResponse.json().catch(() => ({}))
+      ᴄᴏɴsᴛ ᴄᴏɴғɪɢᴅᴀᴛᴀ =
+        ᴀᴡᴀɪᴛ ᴄᴏɴғɪɢʀᴇsᴘᴏɴsᴇ.ᴊsᴏɴ().ᴄᴀᴛᴄʜ(() => ({}))
 
-      if (!configResponse.ok) {
-        throw new Error(
-          configData?.message ||
-          configData?.error ||
-          `Config update failed: HTTP ${configResponse.status}`
+      ɪғ (!ᴄᴏɴғɪɢʀᴇsᴘᴏɴsᴇ.ᴏᴋ) {
+        ᴛʜʀᴏᴡ ɴᴇᴡ ᴇʀʀᴏʀ(
+          ᴄᴏɴғɪɢᴅᴀᴛᴀ?.ᴍᴇssᴀɢᴇ ||
+          ᴄᴏɴғɪɢᴅᴀᴛᴀ?.ᴇʀʀᴏʀ ||
+          `ᴄᴏɴғɪɢ ᴜᴘᴅᴀᴛᴇ ғᴀɪʟᴇᴅ: ʜᴛᴛᴘ ${ᴄᴏɴғɪɢʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs}`
         )
       }
 
       /*
-       * BUILD
+       * ʙᴜɪʟᴅ
        */
 
-      const buildResponse = await fetch(
-        `${apiBase}/builds`,
+      ᴄᴏɴsᴛ ʙᴜɪʟᴅʀᴇsᴘᴏɴsᴇ = ᴀᴡᴀɪᴛ ғᴇᴛᴄʜ(
+        `${ᴀᴘɪʙᴀsᴇ}/ʙᴜɪʟᴅs`,
         {
-          method: 'POST',
-          headers,
-          body: JSON.stringify({
-            source_blob: {
-              url: sourceUrl,
-              version_description:
-                `Raza-MD deploy from ${REPO}@${BRANCH}`
+          ᴍᴇᴛʜᴏᴅ: 'ᴘᴏsᴛ',
+          ʜᴇᴀᴅᴇʀs,
+          ʙᴏᴅʏ: ᴊsᴏɴ.sᴛʀɪɴɢɪғʏ({
+            sᴏᴜʀᴄᴇ_ʙʟᴏʙ: {
+              ᴜʀʟ: sᴏᴜʀᴄᴇᴜʀʟ,
+              ᴠᴇʀsɪᴏɴ_ᴅᴇsᴄʀɪᴘᴛɪᴏɴ:
+                `ʀᴀᴢᴀ-ᴍᴅ ᴅᴇᴘʟᴏʏ ғʀᴏᴍ ${ʀᴇᴘᴏ}@${ʙʀᴀɴᴄʜ}`
             }
           })
         }
       )
 
-      const buildData =
-        await buildResponse.json().catch(() => ({}))
+      ᴄᴏɴsᴛ ʙᴜɪʟᴅᴅᴀᴛᴀ =
+        ᴀᴡᴀɪᴛ ʙᴜɪʟᴅʀᴇsᴘᴏɴsᴇ.ᴊsᴏɴ().ᴄᴀᴛᴄʜ(() => ({}))
 
-      if (!buildResponse.ok) {
-        throw new Error(
-          buildData?.message ||
-          buildData?.error ||
-          `Build failed: HTTP ${buildResponse.status}`
+      ɪғ (!ʙᴜɪʟᴅʀᴇsᴘᴏɴsᴇ.ᴏᴋ) {
+        ᴛʜʀᴏᴡ ɴᴇᴡ ᴇʀʀᴏʀ(
+          ʙᴜɪʟᴅᴅᴀᴛᴀ?.ᴍᴇssᴀɢᴇ ||
+          ʙᴜɪʟᴅᴅᴀᴛᴀ?.ᴇʀʀᴏʀ ||
+          `ʙᴜɪʟᴅ ғᴀɪʟᴇᴅ: ʜᴛᴛᴘ ${ʙᴜɪʟᴅʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs}`
         )
       }
 
-      const buildId =
-        buildData?.id || 'unknown'
+      ᴄᴏɴsᴛ ʙᴜɪʟᴅɪᴅ =
+        ʙᴜɪʟᴅᴅᴀᴛᴀ?.ɪᴅ || 'ᴜɴᴋɴᴏᴡɴ'
 
       /*
-       * WORKER FORMATION
+       * ᴡᴏʀᴋᴇʀ ғᴏʀᴍᴀᴛɪᴏɴ
        */
 
-      const formationResponse = await fetch(
-        `${apiBase}/formation`,
+      ᴄᴏɴsᴛ ғᴏʀᴍᴀᴛɪᴏɴʀᴇsᴘᴏɴsᴇ = ᴀᴡᴀɪᴛ ғᴇᴛᴄʜ(
+        `${ᴀᴘɪʙᴀsᴇ}/ғᴏʀᴍᴀᴛɪᴏɴ`,
         {
-          method: 'PATCH',
-          headers,
-          body: JSON.stringify({
-            updates: [
+          ᴍᴇᴛʜᴏᴅ: 'ᴘᴀᴛᴄʜ',
+          ʜᴇᴀᴅᴇʀs,
+          ʙᴏᴅʏ: ᴊsᴏɴ.sᴛʀɪɴɢɪғʏ({
+            ᴜᴘᴅᴀᴛᴇs: [
               {
-                type: 'web',
-                quantity: 0,
-                dyno_size: {
-                  name: 'basic'
+                ᴛʏᴘᴇ: 'ᴡᴇʙ',
+                ǫᴜᴀɴᴛɪᴛʏ: 0,
+                ᴅʏɴᴏ_sɪᴢᴇ: {
+                  ɴᴀᴍᴇ: 'ʙᴀsɪᴄ'
                 }
               },
               {
-                type: 'worker',
-                quantity: 1,
-                dyno_size: {
-                  name: 'basic'
+                ᴛʏᴘᴇ: 'ᴡᴏʀᴋᴇʀ',
+                ǫᴜᴀɴᴛɪᴛʏ: 1,
+                ᴅʏɴᴏ_sɪᴢᴇ: {
+                  ɴᴀᴍᴇ: 'ʙᴀsɪᴄ'
                 }
               }
             ]
@@ -269,55 +269,55 @@ export default {
         }
       )
 
-      const formationData =
-        await formationResponse.json().catch(() => ({}))
+      ᴄᴏɴsᴛ ғᴏʀᴍᴀᴛɪᴏɴᴅᴀᴛᴀ =
+        ᴀᴡᴀɪᴛ ғᴏʀᴍᴀᴛɪᴏɴʀᴇsᴘᴏɴsᴇ.ᴊsᴏɴ().ᴄᴀᴛᴄʜ(() => ({}))
 
-      if (!formationResponse.ok) {
-        throw new Error(
-          formationData?.message ||
-          formationData?.error ||
-          `Worker formation failed: HTTP ${formationResponse.status}`
+      ɪғ (!ғᴏʀᴍᴀᴛɪᴏɴʀᴇsᴘᴏɴsᴇ.ᴏᴋ) {
+        ᴛʜʀᴏᴡ ɴᴇᴡ ᴇʀʀᴏʀ(
+          ғᴏʀᴍᴀᴛɪᴏɴᴅᴀᴛᴀ?.ᴍᴇssᴀɢᴇ ||
+          ғᴏʀᴍᴀᴛɪᴏɴᴅᴀᴛᴀ?.ᴇʀʀᴏʀ ||
+          `ᴡᴏʀᴋᴇʀ ғᴏʀᴍᴀᴛɪᴏɴ ғᴀɪʟᴇᴅ: ʜᴛᴛᴘ ${ғᴏʀᴍᴀᴛɪᴏɴʀᴇsᴘᴏɴsᴇ.sᴛᴀᴛᴜs}`
         )
       }
 
       /*
-       * SUCCESS
+       * sᴜᴄᴄᴇss
        */
 
-      await sock.sendMessage(
-        jid,
+      ᴀᴡᴀɪᴛ sᴏᴄᴋ.sᴇɴᴅᴍᴇssᴀɢᴇ(
+        ᴊɪᴅ,
         {
-          text:
-            '✅ ʀᴀᴢᴀ-ᴍᴅ ᴅᴇᴘʟᴏʏ ᴄʀᴇᴀᴛᴇᴅ\n\n' +
-            `☁️ ᴀᴘᴘ: ${actualAppName}\n` +
-            `📦 ʙᴜɪʟᴅ: ${buildId}\n` +
-            `🌿 ʙʀᴀɴᴄʜ: ${BRANCH}\n` +
-            '🔐 sᴇssɪᴏɴ_ɪᴅ: ᴜᴘᴅᴀᴛᴇᴅ\n' +
-            '🗄️ ᴅᴀᴛᴀʙᴀsᴇ: ᴄᴏɴғɪɢᴜʀᴇᴅ\n' +
-            '⚙️ ᴘʀᴏᴄᴇss: ᴡᴏʀᴋᴇʀ\n' +
-            '▶️ ᴄᴏᴍᴍᴀɴᴅ: ɴᴏᴅᴇ ɪɴᴅᴇx.ᴊs\n' +
-            '🌐 ᴡᴇʙ: ᴅɪsᴀʙʟᴇᴅ\n' +
-            '🔢 ᴡᴏʀᴋᴇʀ: 1\n' +
-            `📊 sᴛᴀᴛᴜs: ${buildData?.status || 'pending'}\n\n` +
-            '🔄 ʀᴀᴢᴀ-ᴍᴅ ᴡɪʟʟ ʀᴜɴ ᴀs ᴀ ᴡᴏʀᴋᴇʀ.'
+          ᴛᴇxᴛ:
+            '✅ ᴍᴏᴇᴇᴅ-ᴍᴅ ᴅᴇᴘʟᴏʏ ᴄʀᴇᴀᴛᴇᴅ\ɴ\ɴ' +
+            `☁️ ᴀᴘᴘ: ${ᴀᴄᴛᴜᴀʟᴀᴘᴘɴᴀᴍᴇ}\ɴ` +
+            `📦 ʙᴜɪʟᴅ: ${ʙᴜɪʟᴅɪᴅ}\ɴ` +
+            `🌿 ʙʀᴀɴᴄʜ: ${ʙʀᴀɴᴄʜ}\ɴ` +
+            '🔐 sᴇssɪᴏɴ_ɪᴅ: ᴜᴘᴅᴀᴛᴇᴅ\ɴ' +
+            '🗄️ ᴅᴀᴛᴀʙᴀsᴇ: ᴄᴏɴғɪɢᴜʀᴇᴅ\ɴ' +
+            '⚙️ ᴘʀᴏᴄᴇss: ᴡᴏʀᴋᴇʀ\ɴ' +
+            '▶️ ᴄᴏᴍᴍᴀɴᴅ: ɴᴏᴅᴇ ɪɴᴅᴇx.ᴊs\ɴ' +
+            '🌐 ᴡᴇʙ: ᴅɪsᴀʙʟᴇᴅ\ɴ' +
+            '🔢 ᴡᴏʀᴋᴇʀ: 1\ɴ' +
+            `📊 sᴛᴀᴛᴜs: ${ʙᴜɪʟᴅᴅᴀᴛᴀ?.sᴛᴀᴛᴜs || 'ᴘᴇɴᴅɪɴɢ'}\ɴ\ɴ` +
+            '🔄 ᴍᴏᴇᴇᴅ-ᴍᴅ ᴡɪʟʟ ʀᴜɴ ᴀs ᴀ ᴡᴏʀᴋᴇʀ.'
         },
-        { quoted: message }
+        { ǫᴜᴏᴛᴇᴅ: ᴍᴇssᴀɢᴇ }
       )
 
-    } catch (error) {
-      console.error(
-        '[DEPLOY ERROR]:',
-        error?.message || error
+    } ᴄᴀᴛᴄʜ (ᴇʀʀᴏʀ) {
+      ᴄᴏɴsᴏʟᴇ.ᴇʀʀᴏʀ(
+        '[ᴅᴇᴘʟᴏʏ ᴇʀʀᴏʀ]:',
+        ᴇʀʀᴏʀ?.ᴍᴇssᴀɢᴇ || ᴇʀʀᴏʀ
       )
 
-      return await sock.sendMessage(
-        jid,
+      ʀᴇᴛᴜʀɴ ᴀᴡᴀɪᴛ sᴏᴄᴋ.sᴇɴᴅᴍᴇssᴀɢᴇ(
+        ᴊɪᴅ,
         {
-          text:
-            '❌ ʀᴀᴢᴀ-ᴍᴅ ᴅᴇᴘʟᴏʏ ғᴀɪʟᴇᴅ\n\n' +
-            `${error?.message || 'unknown error'}`
+          ᴛᴇxᴛ:
+            '❌ ᴍᴏᴇᴇᴅ-ᴍᴅ ᴅᴇᴘʟᴏʏ ғᴀɪʟᴇᴅ\ɴ\ɴ' +
+            `${ᴇʀʀᴏʀ?.ᴍᴇssᴀɢᴇ || 'ᴜɴᴋɴᴏᴡɴ ᴇʀʀᴏʀ'}`
         },
-        { quoted: message }
+        { ǫᴜᴏᴛᴇᴅ: ᴍᴇssᴀɢᴇ }
       )
     }
   }
