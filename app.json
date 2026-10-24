@@ -1,0 +1,77 @@
+{
+  "name": "moeed-md",
+  "description": "Moeed-MD WhatsApp Bot",
+  "keywords": [
+    "nodejs",
+    "whatsapp",
+    "baileys"
+  ],
+  "repository": "https://github.com/moeedxmd/LEGEND-MOEED",
+  "stack": "heroku-24",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "SESSION_ID": {
+      "description": "Moeed-MD session ID",
+      "required": true,
+      "value": ""
+    },
+    "PAIR_SERVER_URL": {
+      "description": "Moeed-MD pairing server URL",
+      "required": true,
+      "value": "https://pair-web-3e08f4e68faf.herokuapp.com"
+    },
+    "PREFIX": {
+      "description": "Bot command prefix",
+      "required": false,
+      "value": "."
+    },
+    "HEROKU_API_KEY": {
+      "description": "Heroku API key for GitHub updates",
+      "required": false,
+      "value": ""
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Heroku app name for GitHub updates",
+      "required": false,
+      "value": ""
+    },
+    "DB_HOST": {
+      "description": "Aiven MySQL database host",
+      "required": true,
+      "value": "mysql-raza123-innoxcentraza-9801.c.aivencloud.com"
+    },
+    "DB_PORT": {
+      "description": "Aiven MySQL database port",
+      "required": true,
+      "value": "19244"
+    },
+    "DB_NAME": {
+      "description": "Aiven MySQL database name",
+      "required": true,
+      "value": "defaultdb"
+    },
+    "DB_USER": {
+      "description": "Aiven MySQL database user",
+      "required": true,
+      "value": "avnadmin"
+    },
+    "DB_PASSWORD": {
+      "description": "Aiven MySQL database password",
+      "required": true,
+      "value": ""
+    }
+  },
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
+    },
+    "web": {
+      "quantity": 0
+    }
+  }
+}
